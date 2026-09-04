@@ -1,0 +1,67 @@
+CREATE TABLE IF NOT EXISTS users (
+  id BIGSERIAL PRIMARY KEY,
+  username TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  password_hash TEXT,
+  google_sub TEXT,
+  invite TEXT NOT NULL UNIQUE,
+  invited_by BIGINT REFERENCES users(id),
+  balance INTEGER NOT NULL DEFAULT 100,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS invite_codes (
+  code TEXT PRIMARY KEY,
+  user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  used_by BIGINT REFERENCES users(id),
+  used_at TIMESTAMPTZ
+);
+CREATE TABLE IF NOT EXISTS movies (
+  id BIGSERIAL PRIMARY KEY,
+  title TEXT NOT NULL,
+  genre TEXT,
+  duration TEXT,
+  price INTEGER NOT NULL CHECK(price >= 1 AND price <= 35),
+  poster TEXT,
+  video TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS tickets (
+  id TEXT PRIMARY KEY,
+  user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  movie_id BIGINT NOT NULL REFERENCES movies(id) ON DELETE CASCADE,
+  price INTEGER NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  watched BOOLEAN NOT NULL DEFAULT FALSE
+);
+CREATE TABLE IF NOT EXISTS transactions (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  amount INTEGER NOT NULL,
+  type TEXT NOT NULL,
+  ref TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS otp_codes (
+  id BIGSERIAL PRIMARY KEY,
+  email TEXT NOT NULL,
+  code_hash TEXT NOT NULL,
+  purpose TEXT NOT NULL DEFAULT 'register',
+  expires_at BIGINT NOT NULL,
+  used BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS otp_email_idx ON otp_codes(email, purpose, used, id DESC);
+CREATE TABLE IF NOT EXISTS task_submissions (
+  id TEXT PRIMARY KEY,
+  user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  proof_key TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'pending',
+  reason TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  reward_applied BOOLEAN NOT NULL DEFAULT FALSE
+);
+CREATE TABLE IF NOT EXISTS admins (
+  id BIGSERIAL PRIMARY KEY,
+  email TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL
+);

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://accounts.google.com/gsi/client" async defer></script>
+<title>YOVIES — Cinema</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+:root{--bg:#08090c;--panel:#111319;--panel2:#171a21;--text:#f6f7fb;--muted:#9298a6;--gold:#f4c95d;--line:#252934;--green:#63e6be;--red:#ff6b7a;--shadow:0 20px 60px rgba(0,0,0,.35)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(900px 500px at 80% -10%,rgba(244,201,93,.10),transparent 60%),var(--bg);color:var(--text);font-family:"DM Sans",sans-serif}button,input{font:inherit}button{cursor:pointer}
+a{text-decoration:none;color:inherit}.wrap{width:min(1180px,calc(100% - 40px));margin:auto}.nav{position:sticky;top:0;z-index:20;background:rgba(8,9,12,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06)}.navin{height:74px;display:flex;align-items:center;gap:28px}.logo{font-weight:800;letter-spacing:.08em}.logo b{color:var(--gold)}.links{display:flex;gap:22px;color:#aeb3bf;font-size:14px}.links a:hover,.links a.active{color:#fff}.spacer{flex:1}.wallet{border:1px solid var(--line);background:#0e1015;padding:9px 13px;border-radius:12px;font-size:13px}.wallet b{color:var(--gold)}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#f4c95d,#a47b22);color:#111;font-weight:800}.mobile{display:none}
+.hero{padding:78px 0 52px}.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:center}.eyebrow{color:var(--gold);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.hero h1{font-family:"Playfair Display";font-size:clamp(44px,6vw,76px);line-height:.98;margin:16px 0}.hero p{color:var(--muted);font-size:17px;line-height:1.7;max-width:600px}.actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}.btn{border:0;border-radius:13px;padding:12px 18px;background:#fff;color:#0b0c0f;font-weight:700}.btn.gold{background:var(--gold)}.btn.ghost{background:#14171d;color:#fff;border:1px solid var(--line)}.btn:disabled{opacity:.45;cursor:not-allowed}.hero-card{min-height:390px;border:1px solid var(--line);border-radius:28px;padding:22px;background:linear-gradient(145deg,#191b22,#0d0f14);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero-card:before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 70% 25%,rgba(244,201,93,.28),transparent 24%),radial-gradient(circle at 35% 75%,rgba(89,125,255,.18),transparent 30%);filter:blur(8px)}.hero-card>*{position:relative}.feature-poster{height:300px;border-radius:20px;background:linear-gradient(145deg,#272b39,#0d0f14);display:flex;align-items:flex-end;padding:24px}.feature-poster h3{font-family:"Playfair Display";font-size:34px;margin:0}.section{padding:32px 0 76px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.section h2{font-size:28px;margin:0}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.movie{background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:.25s;box-shadow:0 8px 35px rgba(0,0,0,.16)}.movie:hover{transform:translateY(-5px);border-color:#3a3f4d}.poster{aspect-ratio:2/3;padding:18px;display:flex;align-items:flex-end;background:var(--poster,linear-gradient(145deg,#252936,#111));position:relative}.poster:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(0,0,0,.75))}.poster-content{position:relative;z-index:1}.poster small{color:#ddd}.movie-body{padding:17px}.movie h3{margin:0 0 7px;font-size:17px}.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.price{color:var(--gold);font-weight:800}.movie-actions{display:flex;gap:8px;margin-top:15px}.movie-actions .btn{flex:1;padding:10px 11px;font-size:13px}.tag{display:inline-flex;padding:5px 8px;border-radius:999px;background:rgba(244,201,93,.12);color:var(--gold);font-size:11px;font-weight:700}
+.page{display:none;padding:48px 0 80px}.page.active{display:block}.panel{background:rgba(17,19,25,.82);border:1px solid var(--line);border-radius:22px;padding:22px}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.empty{padding:50px 20px;text-align:center;color:var(--muted)}.notice{padding:13px 15px;border-radius:12px;background:#151821;border:1px solid var(--line);margin:12px 0}.success{color:var(--green)}.danger{color:var(--red)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:16px;z-index:50;overflow-y:auto}.modal.show{display:flex}.modalbox{width:min(520px,100%);max-height:calc(100vh - 32px);overflow-y:auto;box-sizing:border-box;background:#111319;border:1px solid #2b2f39;border-radius:24px;padding:24px;box-shadow:var(--shadow);overscroll-behavior:contain}.modalbox *{box-sizing:border-box}.modalhead{display:flex;justify-content:space-between;gap:15px}.close{background:none;border:0;color:#aaa;font-size:24px}.field{margin:14px 0}.field label{display:block;color:#aab0bc;font-size:12px;margin-bottom:7px}.field input{width:100%;background:#0b0d11;border:1px solid var(--line);color:#fff;padding:12px;border-radius:11px;outline:none}.field input:focus{border-color:#8b7436}.toast{position:fixed;right:22px;bottom:22px;background:#f6f7fb;color:#0a0b0e;padding:13px 16px;border-radius:13px;font-weight:700;z-index:80;transform:translateY(20px);opacity:0;pointer-events:none;transition:.25s}.toast.show{transform:none;opacity:1}.watch{display:none;position:fixed;inset:0;background:#050608;z-index:70;padding:24px}.watch.show{display:block}.video-shell{width:min(1050px,100%);margin:20px auto}.video-shell video{width:100%;max-height:72vh;background:#000;border-radius:16px}.watchbar{width:min(1050px,100%);margin:auto;display:flex;align-items:center;justify-content:space-between}.one-time{color:var(--red);font-size:13px}.loginbox{max-width:440px;margin:40px auto}.auth-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:#666;font-size:10px}.auth-divider:before,.auth-divider:after{content:"";height:1px;background:#2b2f39;flex:1}.google-btn{min-height:44px;display:flex;justify-content:center;align-items:center}.google-shell{min-height:46px;border:1px solid #343843;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#17191f;font-weight:700;gap:10px;cursor:pointer;transition:.2s}.google-shell:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(0,0,0,.25)}.google-shell.disabled{opacity:.55;cursor:not-allowed}.otp-row{display:grid;grid-template-columns:1fr auto;gap:10px}.otp-note{font-size:11px;color:#7f8796;margin-top:6px}.verify-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid #3a4032;background:#151a12;color:#d7e7a9;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:700}.footer{border-top:1px solid var(--line);padding:25px 0;color:#747a87;font-size:12px}
+@media(max-width:800px){.links{display:none}.mobile{display:block}.hero-grid,.two{grid-template-columns:1fr}.hero{padding-top:45px}.grid{grid-template-columns:repeat(2,1fr)}.wallet{display:none}}
+@media(max-width:540px){.modal{align-items:flex-start;padding:10px}.modalbox{max-height:calc(100vh - 20px);padding:18px;border-radius:18px}.otp-row{grid-template-columns:minmax(0,1fr) auto}.otp-row .btn{white-space:nowrap;padding-left:12px;padding-right:12px}.google-shell{width:100%}.wrap{width:min(100% - 24px,1180px)}.grid{grid-template-columns:1fr}.hero h1{font-size:48px}.navin{height:64px}.hero-card{min-height:300px}.feature-poster{height:230px}}
+
+/* ===== YOVIES MOTION DESIGN ===== */
+@keyframes yvFadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yvFadeLeft{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
+@keyframes yvFadeRight{from{opacity:0;transform:translateX(32px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes yvFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(.6deg)}}
+@keyframes yvGlow{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.9;transform:scale(1.08)}}
+@keyframes yvShimmer{0%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+@keyframes yvPulse{0%,100%{box-shadow:0 0 0 0 rgba(244,201,93,0)}50%{box-shadow:0 0 0 9px rgba(244,201,93,.08)}}
+@keyframes yvReveal{from{opacity:0;clip-path:inset(0 0 100% 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+
+.nav{transition:background .35s,box-shadow .35s}.nav.scrolled{background:rgba(8,9,12,.94);box-shadow:0 12px 40px rgba(0,0,0,.22)}
+.logo{transition:transform .25s}.logo:hover{transform:translateY(-2px) scale(1.02)}
+.links a{position:relative;transition:color .25s,transform .25s}.links a:hover{transform:translateY(-2px)}.links a:after{content:"";position:absolute;left:50%;bottom:-8px;width:0;height:2px;background:var(--gold);border-radius:4px;transition:width .25s,left .25s}.links a:hover:after,.links a.active:after{width:100%;left:0}
+
+.hero-grid>div:first-child{animation:yvFadeLeft .8s cubic-bezier(.2,.8,.2,1) both}.hero-card{animation:yvFadeRight .9s .12s cubic-bezier(.2,.8,.2,1) both;transform-style:preserve-3d;transition:transform .18s ease,box-shadow .3s}.hero-card:hover{box-shadow:0 28px 80px rgba(0,0,0,.48)}
+.hero-card:before{animation:yvGlow 5s ease-in-out infinite}.feature-poster{position:relative;overflow:hidden;animation:yvFloat 6s ease-in-out infinite;box-shadow:0 20px 50px rgba(0,0,0,.25)}.feature-poster:after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.10) 50%,transparent 65%);transform:translateX(-120%);animation:yvShimmer 5s ease-in-out infinite}.feature-poster .poster-content{animation:yvReveal .9s .45s both}
+.eyebrow{animation:yvFadeUp .6s both}.hero h1{animation:yvFadeUp .8s .08s both}.hero p{animation:yvFadeUp .8s .18s both}.hero .actions{animation:yvFadeUp .8s .28s both}.hero .actions .btn{transition:transform .25s,box-shadow .25s}.hero .actions .btn:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(244,201,93,.16)}
+
+.movie,.panel,.stat{transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;transform-style:preserve-3d}.movie:hover,.panel:hover,.stat:hover{transform:translateY(-7px);border-color:#3b404e;box-shadow:0 18px 45px rgba(0,0,0,.25)}
+.poster{overflow:hidden;transition:transform .5s cubic-bezier(.2,.8,.2,1)}.movie:hover .poster{transform:scale(1.025)}.poster:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.12) 48%,transparent 70%);transform:translateX(-130%);transition:none}.movie:hover .poster:before{animation:yvShimmer .9s ease}.poster-content{transition:transform .35s}.movie:hover .poster-content{transform:translateY(-5px)}
+.tag{transition:transform .25s,background .25s}.movie:hover .tag,.panel:hover .tag{transform:translateY(-2px);background:rgba(244,201,93,.18)}
+.btn{transition:transform .2s,box-shadow .2s,filter .2s}.btn:hover{transform:translateY(-2px);filter:brightness(1.04)}.btn:active{transform:translateY(1px) scale(.98)}.btn.gold{animation:yvPulse 3.2s ease-in-out infinite}
+
+.page.active .section,.page.active>.wrap{animation:yvFadeUp .55s cubic-bezier(.2,.8,.2,1) both}.section-head h2,.section-head .muted{animation:yvFadeUp .65s .05s both}
+.grid .movie:nth-child(1),.grid .panel:nth-child(1),.grid .stat:nth-child(1){animation:yvFadeUp .55s .05s both}.grid .movie:nth-child(2),.grid .panel:nth-child(2),.grid .stat:nth-child(2){animation:yvFadeUp .55s .12s both}.grid .movie:nth-child(3),.grid .panel:nth-child(3),.grid .stat:nth-child(3){animation:yvFadeUp .55s .19s both}.grid .movie:nth-child(4),.grid .panel:nth-child(4),.grid .stat:nth-child(4){animation:yvFadeUp .55s .26s both}
+
+.wallet{transition:transform .25s,border-color .25s}.wallet:hover{transform:translateY(-2px);border-color:#4a4f5c}.avatar{transition:transform .3s,box-shadow .3s}.avatar:hover{transform:scale(1.08) rotate(5deg);box-shadow:0 8px 24px rgba(244,201,93,.22)}
+.modal.show .modalbox{animation:yvFadeUp .35s cubic-bezier(.2,.8,.2,1) both}.toast.show{animation:yvFadeUp .3s both}
+.watch.show .watchbar,.watch.show .video-shell{animation:yvFadeUp .55s both}.watch.show .video-shell{animation-delay:.08s}
+
+/* subtle animated background */
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(500px 300px at 10% 25%,rgba(244,201,93,.045),transparent 70%),radial-gradient(500px 320px at 90% 65%,rgba(100,120,255,.035),transparent 70%);animation:yvGlow 9s ease-in-out infinite}
+
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
+/* YOVIES CINEMA PRO MOTION v3 */
+html{scroll-behavior:smooth}body{overflow-x:hidden;background-color:var(--bg)}
+body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:-2;background:radial-gradient(circle at 15% 20%,rgba(244,201,93,.08),transparent 28%),radial-gradient(circle at 85% 65%,rgba(91,115,255,.06),transparent 30%);animation:yvAtmosphere 14s ease-in-out infinite alternate}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.025) 45%,transparent 55%);transform:translateX(-120%);animation:yvSheen 12s ease-in-out infinite}
+@keyframes yvAtmosphere{from{transform:scale(1) translate3d(-1%,0,0)}to{transform:scale(1.08) translate3d(2%,-1%,0)}}
+@keyframes yvSheen{0%,65%{transform:translateX(-120%)}80%,100%{transform:translateX(120%)}}
+@keyframes yvFadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yvFade{from{opacity:0}to{opacity:1}}
+@keyframes yvFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes yvGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(244,201,93,0))}50%{filter:drop-shadow(0 0 18px rgba(244,201,93,.24))}}
+header{animation:yvFade .8s ease both;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.hero{position:relative;isolation:isolate;overflow:hidden}.hero>*{animation:yvFadeUp .8s cubic-bezier(.2,.8,.2,1) both}.hero>*:nth-child(2){animation-delay:.1s}.hero>*:nth-child(3){animation-delay:.18s}.hero>*:nth-child(4){animation-delay:.26s}
+.hero::before{content:"";position:absolute;width:420px;height:420px;right:5%;top:8%;border-radius:50%;background:rgba(244,201,93,.08);filter:blur(80px);z-index:-1;animation:yvFloat 7s ease-in-out infinite}
+.card,.movie-card,.panel,.ticket,.task-card,.stat,.admin-card{transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease,border-color .45s ease,background .45s ease;will-change:transform}
+.card:hover,.movie-card:hover,.ticket:hover,.task-card:hover,.stat:hover,.admin-card:hover{transform:translateY(-8px);box-shadow:0 18px 55px rgba(0,0,0,.35),0 0 0 1px rgba(244,201,93,.1)}
+img{transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .7s ease}.card:hover img,.movie-card:hover img{transform:scale(1.055);filter:saturate(1.08) contrast(1.03)}
+button,.btn,a.btn{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s ease,filter .25s ease}.btn:hover,button:hover{transform:translateY(-2px)}.btn:active,button:active{transform:translateY(0) scale(.98)}
+.logo{animation:yvGlow 4s ease-in-out infinite}
+section{animation:yvFadeUp .7s ease both}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap navin">
+<a class="logo" href="#home">YO<span>VIES</span> <b>CINEMAS</b></a>
+<div class="links"><a href="#home">Trang chủ</a><a href="#movies">Phim</a><a href="#movies">Mua vé</a><a href="#tickets">Vé của tôi</a><a href="#tasks">Nhiệm vụ</a><a href="#terms">Điều khoản</a></div>
+<div class="spacer"></div><div class="wallet">Yoin <b id="balance">100</b></div><button id="accountBtn" class="btn ghost" onclick="openAuth()">Đăng nhập / Đăng ký</button><div class="avatar" id="avatar" style="display:none">Y</div><button class="btn ghost mobile" onclick="openAuth()">Tài khoản</button>
+</div></nav>
+
+<main>
+<section id="home" class="page active"><div class="wrap hero"><div class="hero-grid">
+<div><div class="eyebrow">YOVIES / CINEMA CLUB</div><h1>Xem phim.<br><i>Sống trọn</i> từng cảnh.</h1><p>Một không gian điện ảnh tối giản, thoáng và hiện đại. Dùng Yoin để sở hữu vé, sau đó mở phim từ thư viện của bạn — mỗi vé chỉ được xem đúng một lần.</p><div class="actions"><a class="btn gold" href="#movies">Khám phá phim</a><a class="btn ghost" href="#tickets">Vé đã mua</a></div></div>
+<div class="hero-card"><div class="feature-poster"><div class="poster-content"><span class="tag">ĐANG CHIẾU</span><h3>Beyond The Stars</h3><div class="muted">Sci‑Fi · 2h 04m</div></div></div></div>
+</div></div></section>
+
+<section id="movies" class="page"><div class="wrap section"><div class="section-head"><div><div class="eyebrow">NOW SHOWING</div><h2>Chọn một thế giới</h2></div><span class="muted">Giá vé tối đa 35 Yoin</span></div><div id="movieGrid" class="grid"></div></div></section>
+
+<section id="tickets" class="page"><div class="wrap section"><div class="section-head"><div><div class="eyebrow">YOUR LIBRARY</div><h2>Vé của tôi</h2></div></div><div id="ticketList"></div></div></section>
+
+<section id="tasks" class="page"><div class="wrap section"><div class="section-head"><div><div class="eyebrow">EARN YOIN</div><h2>Nhiệm vụ</h2></div></div><div class="two">
+<div class="panel"><span class="tag">TRỌN ĐỜI</span><h3>Subscribe Yo! Doraeiga</h3><p class="muted">Đăng ký kênh, sau đó tải ảnh bằng chứng để QTV kiểm tra. Được duyệt: <b class="success">+30 Yoin</b>. Gian lận: <b class="danger">−5 Yoin</b>.</p><a class="btn gold" target="_blank" href="https://www.youtube.com/@yodoraeiga2026">Mở kênh</a><div class="field"><label>Ảnh bằng chứng</label><input id="proofFile" type="file" accept="image/*"></div><button class="btn ghost" onclick="submitProof()">Gửi bằng chứng</button><div id="proofStatus" class="notice"></div></div>
+<div class="panel"><span class="tag">MỜI BẠN</span><h3>Invite ID</h3><p class="muted">Mã mời demo của tài khoản: <b id="inviteCode">YOVIES-8K4M2</b></p><p class="muted">Bạn bè nhập mã khi đăng ký. Mỗi mã chỉ dùng một lần.</p></div>
+</div></div></section>
+
+<section id="account" class="page"><div class="wrap section"><div class="two">
+<div class="panel"><div class="eyebrow">ACCOUNT</div><h2 id="accountName">Tài khoản</h2><p class="muted" id="accountEmail">Chưa đăng nhập</p><div class="notice">Số dư: <b style="color:var(--gold)" id="accountBalance">0 Yoin</b></div><button class="btn gold" onclick="openAuth()">Đăng nhập / Đăng ký</button><button class="btn ghost" onclick="logout()">Đăng xuất</button></div>
+<div class="panel"><div class="eyebrow">PROFILE</div><h3>Đổi tên hiển thị</h3><div class="field"><label>Tên tài khoản</label><input id="username"></div><button class="btn ghost" onclick="saveAccount()">Lưu</button><p class="muted">Avatar và các tính năng tài khoản nâng cao sẽ được bật khi kết nối backend.</p></div>
+</div></div></section>
+
+<section id="terms" class="page"><div class="wrap section"><div class="panel"><div class="eyebrow">LEGAL</div><h2>Điều khoản & Chính sách bảo mật</h2><p class="muted">Yoin là điểm nội bộ của YOVIES. Vé đã mua không hoàn lại. Quyền xem chỉ được cấp cho tài khoản sở hữu vé và bị tiêu hao ngay khi bắt đầu xem phim.</p><p class="muted">Phiên bản demo chạy độc lập bằng file HTML; không gửi dữ liệu cá nhân lên máy chủ.</p></div></div></section>
+</main>
+<footer class="footer"><div class="wrap">© 2026 YOVIES CINEMAS · Cinema, simplified.</div></footer>
+
+
+<div id="authModal" class="modal"><div class="modalbox">
+<div class="modalhead"><div><div class="eyebrow">YOVIES ACCOUNT</div><h2 id="authTitle">Đăng nhập</h2></div><button class="close" onclick="closeAuth()">×</button></div>
+<div id="loginForm">
+<div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="you@example.com"></div>
+<div class="field"><label>Mật khẩu</label><input id="loginPass" type="password" placeholder="••••••••"></div>
+<button class="btn gold" style="width:100%" onclick="login()">Đăng nhập</button><p style="text-align:right;margin:10px 0 0"><a href="#" onclick="openReset();return false" style="color:var(--gold);font-size:12px">Quên mật khẩu?</a></p><div class="auth-divider"><span>HOẶC</span></div><div id="googleLoginButton" class="google-btn"><button type="button" class="google-shell" onclick="startGoogleLogin()"><span style="font-size:20px">G</span><span>Tiếp tục với Google</span></button></div>
+<p class="muted" style="text-align:center">Chưa có tài khoản? <a href="#" onclick="toggleAuth();return false" style="color:var(--gold)">Đăng ký ngay</a></p>
+</div>
+<div id="registerForm" style="display:none">
+<div class="field"><label>Tên tài khoản</label><input id="regName" placeholder="Tên hiển thị"></div>
+<div class="field"><label>Email Gmail</label><div class="otp-row"><input id="regEmail" type="email" placeholder="you@gmail.com"><button id="sendOtpBtn" type="button" class="btn ghost" onclick="requestOtp()">Gửi mã</button></div><div class="otp-note">Mã xác minh 6 số sẽ được gửi tới email này và hết hạn sau 10 phút.</div></div>
+<div class="field"><label>Mã xác minh Gmail</label><div class="otp-row"><input id="regOtp" inputmode="numeric" maxlength="6" placeholder="000000"><span id="otpBadge" class="verify-badge" style="display:none">✓ Đã gửi mã</span></div></div>
+<div class="field"><label>Mật khẩu</label><input id="regPass" type="password" placeholder="Tối thiểu 6 ký tự"></div>
+<div class="field"><label>Nhập lại mật khẩu</label><input id="regPass2" type="password" placeholder="Nhập lại mật khẩu"></div>
+<div class="field"><label>Mã mời bạn (nếu có)</label><input id="regInvite" placeholder="YOVIES-XXXXXX"></div>
+<label style="display:flex;gap:9px;align-items:flex-start;color:#aeb3bf;font-size:12px"><input id="acceptTerms" type="checkbox" style="margin-top:2px"> Tôi đồng ý với <a href="#terms" onclick="closeAuth()" style="color:var(--gold)">Điều khoản & Chính sách bảo mật</a>.</label>
+<button class="btn gold" style="width:100%;margin-top:16px" onclick="register()">Xác minh Gmail & Tạo tài khoản</button><div class="auth-divider"><span>HOẶC</span></div><div id="googleRegisterButton" class="google-btn"><button type="button" class="google-shell" onclick="startGoogleLogin()"><span style="font-size:20px">G</span><span>Đăng ký bằng Google</span></button></div>
+<p class="muted" style="text-align:center">Đã có tài khoản? <a href="#" onclick="toggleAuth();return false" style="color:var(--gold)">Đăng nhập</a></p>
+</div>
+</div></div>
+<div id="resetModal" class="modal"><div class="modalbox">
+<div class="modalhead"><div><div class="eyebrow">ACCOUNT RECOVERY</div><h2>Đặt lại mật khẩu</h2></div><button class="close" onclick="closeReset()">×</button></div>
+<p class="muted">Nhập Gmail đã đăng ký. Chúng tôi sẽ gửi mã 6 số để xác minh.</p>
+<div class="field"><label>Email Gmail</label><div class="otp-row"><input id="resetEmail" type="email" placeholder="you@gmail.com"><button id="resetSendBtn" type="button" class="btn ghost" onclick="requestResetOtp()">Gửi mã</button></div></div>
+<div class="field"><label>Mã xác minh</label><input id="resetOtp" inputmode="numeric" maxlength="6" placeholder="000000"></div>
+<div class="field"><label>Mật khẩu mới</label><input id="resetPass" type="password" placeholder="Tối thiểu 6 ký tự"></div>
+<div class="field"><label>Nhập lại mật khẩu mới</label><input id="resetPass2" type="password" placeholder="Nhập lại mật khẩu"></div>
+<button class="btn gold" style="width:100%" onclick="resetPassword()">Xác minh & Đổi mật khẩu</button>
+<p class="muted" style="text-align:center;margin-top:14px"><a href="#" onclick="closeReset();openAuth();return false" style="color:var(--gold)">← Quay lại đăng nhập</a></p>
+</div></div>
+<div id="modal" class="modal"><div class="modalbox"><div class="modalhead"><div><div class="eyebrow">CONFIRM TICKET</div><h2 id="mTitle">Mua vé</h2></div><button class="close" onclick="closeModal()">×</button></div><p id="mInfo" class="muted"></p><div class="field"><label>Mã xác nhận demo</label><input id="captcha" placeholder="Nhập YOVIES"></div><button id="confirmBtn" class="btn gold" style="width:100%" onclick="confirmBuy()">Xác nhận mua vé</button></div></div>
+<div id="toast" class="toast"></div>
+<div id="watch" class="watch"><div class="watchbar"><div><div class="eyebrow">ONE-TIME SCREENING</div><h2 id="watchTitle">Đang phát</h2></div><button class="btn ghost" onclick="closeWatch()">Đóng</button></div><div class="video-shell"><video id="player" controls controlsList="nodownload" playsinline></video><div class="one-time">⚠ Vé sẽ được đánh dấu ĐÃ XEM ngay khi bắt đầu phát. Không thể xem lại.</div></div></div>
+
+<script>
+const API='/api';
+let state={loggedIn:false,username:'',email:'',balance:0,invite:'',movies:[],tickets:[]};
+async function api(path,opt={}){const r=await fetch(API+path,{credentials:'same-origin',...opt});let d={};try{d=await r.json()}catch{}if(!r.ok)throw Error(d.error||'Có lỗi xảy ra');return d}
+function toast(t){let e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2600)}
+function syncUI(){document.getElementById('balance').textContent=state.loggedIn?state.balance:'—';document.getElementById('avatar').textContent=(state.username||'Y')[0].toUpperCase();document.getElementById('avatar').style.display=state.loggedIn?'grid':'none';document.getElementById('accountBtn').textContent=state.loggedIn?(state.username||'Tài khoản'):'Đăng nhập / Đăng ký';document.getElementById('accountName').textContent=state.loggedIn?state.username:'Chưa đăng nhập';document.getElementById('accountEmail').textContent=state.loggedIn?state.email:'Hãy đăng nhập để mua vé';document.getElementById('accountBalance').textContent=state.loggedIn?state.balance+' Yoin':'0 Yoin';document.getElementById('inviteCode').textContent=state.invite||'—';document.getElementById('username').value=state.username||''}
+async function load(){try{const m=await api('/me');if(m.user){state={...state,loggedIn:true,...m.user}}else state.loggedIn=false;const ms=await api('/movies');state.movies=ms.movies;if(state.loggedIn){const t=await api('/tickets');state.tickets=t.tickets;await renderProofStatus()}syncUI();renderMovies();renderTickets();route()}catch(e){toast(e.message)}}
+function openAuth(){document.getElementById('authModal').classList.add('show');setTimeout(initGoogleAuth,150)}function closeAuth(){document.getElementById('authModal').classList.remove('show')}
+function toggleAuth(){let l=document.getElementById('loginForm'),r=document.getElementById('registerForm');let reg=r.style.display==='none';l.style.display=reg?'none':'block';r.style.display=reg?'block':'none';document.getElementById('authTitle').textContent=reg?'Đăng ký':'Đăng nhập';setTimeout(initGoogleAuth,50)}
+async function login(){try{const d=await api('/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('loginEmail').value.trim(),password:document.getElementById('loginPass').value})});state={...state,loggedIn:true,...d.user};syncUI();closeAuth();await load();toast('✓ Đăng nhập thành công')}catch(e){toast(e.message)}}
+function openReset(){closeAuth();document.getElementById('resetModal').classList.add('show')}
+function closeReset(){document.getElementById('resetModal').classList.remove('show')}
+async function requestResetOtp(){try{const email=document.getElementById('resetEmail').value.trim();if(!email)throw Error('Hãy nhập email trước');const b=document.getElementById('resetSendBtn');b.disabled=true;b.textContent='Đang gửi...';await api('/auth/request-reset-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});toast('✓ Nếu Gmail tồn tại, mã xác minh đã được gửi');let n=60;const t=setInterval(()=>{n--;b.textContent=n>0?'Gửi lại '+n+'s':'Gửi lại mã';if(n<=0){clearInterval(t);b.disabled=false}},1000)}catch(e){const b=document.getElementById('resetSendBtn');b.disabled=false;b.textContent='Gửi mã';toast(e.message)}}
+async function resetPassword(){try{const email=document.getElementById('resetEmail').value.trim(),otp=document.getElementById('resetOtp').value.trim(),p=document.getElementById('resetPass').value,p2=document.getElementById('resetPass2').value;if(!/^\d{6}$/.test(otp))throw Error('Nhập mã xác minh 6 số');if(p.length<6)throw Error('Mật khẩu mới phải có ít nhất 6 ký tự');if(p!==p2)throw Error('Mật khẩu không khớp');const d=await api('/auth/reset-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,otp,password:p})});closeReset();toast('✓ Đổi mật khẩu thành công — hãy đăng nhập lại');document.getElementById('loginEmail').value=email;document.getElementById('loginPass').value=''}catch(e){toast(e.message)}}
+async function requestOtp(){try{const email=document.getElementById('regEmail').value.trim();if(!email)throw Error('Hãy nhập email trước');const b=document.getElementById('sendOtpBtn');b.disabled=true;b.textContent='Đang gửi...';await api('/auth/request-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});document.getElementById('otpBadge').style.display='inline-flex';toast('✓ Đã gửi mã xác minh tới Gmail');let n=60;const t=setInterval(()=>{n--;b.textContent=n>0?'Gửi lại '+n+'s':'Gửi lại mã';if(n<=0){clearInterval(t);b.disabled=false}},1000)}catch(e){const b=document.getElementById('sendOtpBtn');b.disabled=false;b.textContent='Gửi mã';toast(e.message)}}
+async function register(){try{const name=document.getElementById('regName').value.trim(),email=document.getElementById('regEmail').value.trim(),otp=document.getElementById('regOtp').value.trim(),p=document.getElementById('regPass').value,p2=document.getElementById('regPass2').value,invite=document.getElementById('regInvite').value.trim();if(!document.getElementById('acceptTerms').checked)throw Error('Bạn cần đồng ý điều khoản');if(p!==p2)throw Error('Mật khẩu không khớp');if(!/^\d{6}$/.test(otp))throw Error('Nhập mã xác minh 6 số');const d=await api('/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:name,email,password:p,invite,otp})});state={...state,loggedIn:true,...d.user};syncUI();closeAuth();await load();toast('✓ Gmail đã xác minh — đăng ký thành công')}catch(e){toast(e.message)}}
+async function handleGoogleCredential(r){try{const d=await api('/auth/google',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({credential:r.credential})});state={...state,loggedIn:true,...d.user};syncUI();closeAuth();await load();toast('✓ Đăng nhập Google thành công')}catch(e){toast(e.message)}}
+let googleReady=false;async function startGoogleLogin(){try{if(!googleReady){await initGoogleAuth()}if(!googleReady)throw Error('Google Login chưa được cấu hình. Hãy thêm GOOGLE_CLIENT_ID trên hosting.');google.accounts.id.prompt()}catch(e){toast(e.message)}}
+async function initGoogleAuth(){try{const c=await api('/config');if(!c.googleClientId||!window.google){googleReady=false;return}google.accounts.id.initialize({client_id:c.googleClientId,callback:handleGoogleCredential,auto_select:false,cancel_on_tap_outside:true});googleReady=true;const o={theme:'outline',size:'large',shape:'rectangular',text:'continue_with',logo_alignment:'left',width:360};for(const id of ['googleLoginButton','googleRegisterButton']){const e=document.getElementById(id);if(e){e.innerHTML='';google.accounts.id.renderButton(e,o)}}}catch(e){googleReady=false}}
+async function logout(){await api('/logout',{method:'POST'});state={loggedIn:false,username:'',email:'',balance:0,invite:'',movies:state.movies,tickets:[]};syncUI();renderTickets();toast('Đã đăng xuất')}
+function renderMovies(){document.getElementById('movieGrid').innerHTML=state.movies.map(m=>{const ticket=state.tickets.find(t=>t.movieId===m.id&&!t.watched);return `<article class="movie"><div class="poster" style="--poster:${m.poster||'linear-gradient(145deg,#252936,#111)'}"><div class="poster-content"><small>${m.genre||''}</small><h3>${m.title}</h3></div></div><div class="movie-body"><h3>${m.title}</h3><div class="meta"><span>${m.duration||''}</span><span class="price">${m.price} Yoin</span></div><div class="movie-actions">${ticket?`<button class="btn gold" onclick="watchMovie('${ticket.id}')">▶ Xem phim</button>`:`<button class="btn gold" onclick="openBuy(${m.id})">Mua vé</button>`}<button class="btn ghost" onclick="showDetail(${m.id})">Chi tiết</button></div></div></article>`}).join('')}
+function renderTickets(){let el=document.getElementById('ticketList');if(!state.loggedIn){el.innerHTML='<div class="panel empty">Vui lòng đăng nhập để xem vé.</div>';return}if(!state.tickets.length){el.innerHTML='<div class="panel empty">Bạn chưa có vé. Vào mục <b>Phim</b> để mua vé.</div>';return}el.innerHTML='<div class="grid">'+state.tickets.map(t=>`<div class="panel"><span class="tag">${t.watched?'ĐÃ XEM':'SẴN SÀNG'}</span><h3>${t.title||'Phim'}</h3><p class="muted">Vé #${t.id} · ${t.price} Yoin · ${new Date(t.created).toLocaleString('vi-VN')}</p><button class="btn ${t.watched?'ghost':'gold'}" ${t.watched?'disabled':''} onclick="watchMovie('${t.id}')">${t.watched?'Đã sử dụng':'▶ Xem phim'}</button></div>`).join('')+'</div>'}
+function openBuy(id){if(!state.loggedIn){toast('Vui lòng đăng nhập / đăng ký trước khi mua vé');openAuth();return}const m=state.movies.find(x=>x.id===id);if(!m)return;document.getElementById('mTitle').textContent='Mua vé · '+m.title;document.getElementById('mInfo').textContent=`Giá ${m.price} Yoin · Số dư hiện tại ${state.balance} Yoin`;document.getElementById('captcha').value='';document.getElementById('confirmBtn').dataset.id=id;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+async function confirmBuy(){try{const id=Number(document.getElementById('confirmBtn').dataset.id);if(document.getElementById('captcha').value.trim().toUpperCase()!=='YOVIES')throw Error('Mã xác nhận chưa đúng');const d=await api('/buy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({movieId:id})});state={...state,...d.user};const t=await api('/tickets');state.tickets=t.tickets;syncUI();renderMovies();renderTickets();closeModal();toast('✓ Mua vé thành công!');location.hash='#tickets'}catch(e){toast(e.message)}}
+async function watchMovie(ticketId){try{const d=await api('/tickets/'+encodeURIComponent(ticketId)+'/watch',{method:'POST'});state.tickets=state.tickets.map(t=>t.id===ticketId?{...t,watched:true}:t);renderMovies();renderTickets();document.getElementById('watchTitle').textContent=d.title;document.getElementById('player').src=d.video;document.getElementById('watch').classList.add('show');document.getElementById('player').play().catch(()=>{});toast('Vé đã được kích hoạt. Lượt xem này đã được sử dụng.')}catch(e){toast(e.message)}}
+function closeWatch(){const p=document.getElementById('player');p.pause();p.removeAttribute('src');p.load();document.getElementById('watch').classList.remove('show')}
+function showDetail(id){const m=state.movies.find(x=>x.id===id);if(m)toast(`${m.title} · ${m.genre} · ${m.price} Yoin`)}
+async function submitProof(){try{if(!state.loggedIn){openAuth();return}const f=document.getElementById('proofFile').files[0];if(!f)throw Error('Hãy chọn ảnh bằng chứng');const fd=new FormData();fd.append('proof',f);await api('/tasks',{method:'POST',body:fd});await renderProofStatus();toast('✓ Đã gửi ảnh bằng chứng cho QTV')}catch(e){toast(e.message)}}
+async function renderProofStatus(){const el=document.getElementById('proofStatus');if(!el||!state.loggedIn)return;try{const d=await api('/tasks/me');const x=d.tasks[0];el.innerHTML=x?`Trạng thái: <b class="${x.status==='approved'?'success':x.status==='rejected'?'danger':''}">${x.status==='pending'?'ĐANG CHỜ DUYỆT':x.status==='approved'?'ĐÃ DUYỆT · +30 Yoin':'BỊ TỪ CHỐI · −5 Yoin'}</b>${x.reason?`<br><span class="muted">${x.reason}</span>`:''}`:'Chưa gửi bằng chứng.'}catch{}}
+async function saveAccount(){try{const d=await api('/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:document.getElementById('username').value.trim()})});state={...state,...d.user};syncUI();toast('Đã lưu tài khoản')}catch(e){toast(e.message)}}
+function route(){const h=location.hash||'#home';document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active','#'+p.id===h));if(h==='#movies')renderMovies();if(h==='#tickets')renderTickets();if(h==='#tasks')renderProofStatus()}
+load();window.addEventListener('hashchange',route);window.addEventListener('focus',load);
+</script>
+
+<script>
+/* Motion helpers */
+(function(){
+  const nav=document.querySelector('.nav');
+  const onScroll=()=>nav&&nav.classList.toggle('scrolled',window.scrollY>18);
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  document.addEventListener('mousemove',e=>{
+    const card=document.querySelector('.hero-card'); if(!card) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const r=card.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    if(x<-0.55||x>0.55||y<-0.65||y>0.65) return;
+    card.style.transform=`perspective(900px) rotateY(${x*5}deg) rotateX(${-y*4}deg) translateY(-2px)`;
+  });
+  document.addEventListener('mouseleave',()=>{const c=document.querySelector('.hero-card');if(c)c.style.transform='';});
+})();
+</script>
+<script>
+(()=>{
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(reduce)return;
+ // reveal-on-scroll for cards/sections
+ const els=[...document.querySelectorAll('.card,.movie-card,.ticket,.task-card,.stat,.admin-card,section')];
+ if('IntersectionObserver' in window){
+  els.forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(22px)';el.style.transition='opacity .65s ease '+Math.min(i*35,280)+'ms,transform .65s cubic-bezier(.2,.8,.2,1) '+Math.min(i*35,280)+'ms';});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='none';io.unobserve(e.target)}}),{threshold:.08});els.forEach(e=>io.observe(e));
+ }
+ // cinematic mouse parallax for prominent visual
+ document.querySelectorAll('.hero img,.hero .poster,.hero .hero-poster').forEach(el=>{
+  el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(900px) rotateY(${x*7}deg) rotateX(${-y*6}deg) scale(1.025)`});
+  el.addEventListener('pointerleave',()=>el.style.transform='');
+ });
+ // subtle cursor glow
+ const glow=document.createElement('div');glow.style.cssText='position:fixed;width:180px;height:180px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(244,201,93,.055),transparent 68%);transform:translate(-50%,-50%);mix-blend-mode:screen';document.body.appendChild(glow);
+ addEventListener('pointermove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+})();
+</script></body></html>

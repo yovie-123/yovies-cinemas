@@ -1,0 +1,19 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+  command = "npm run build"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["express", "multer"]
+
+[[redirects]]
+  force = true
+  from = "/api/*"
+  status = 200
+  to = "/.netlify/functions/api/:splat"
+
+[[redirects]]
+  from = "/admin"
+  status = 301
+  to = "/admin/"
