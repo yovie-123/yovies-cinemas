@@ -11,7 +11,9 @@ import { getStore } from '@netlify/blobs';
 import serverless from 'serverless-http';
 
 const app = express();
-const db = getDatabase();
+const db = getDatabase({
+  connectionString: process.env.NETLIFY_DB_URL
+});
 const blobs = getStore('yovies-uploads');
 const SECRET = process.env.SESSION_SECRET || 'CHANGE_ME_YOVIES_SESSION_SECRET';
 const COOKIE = 'yovies_session';
